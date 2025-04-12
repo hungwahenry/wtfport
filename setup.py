@@ -1,3 +1,4 @@
+# setup.py
 from setuptools import setup, find_packages
 import os
 from pathlib import Path
@@ -13,7 +14,7 @@ with open(os.path.join(this_directory, "wtfport", "version.py"), encoding="utf-8
 
 with open(this_directory / "requirements.txt") as f:
     requirements = f.read().splitlines()
-    
+
 # Development requirements
 dev_requirements = [
     "pytest>=7.3.1",
@@ -37,7 +38,7 @@ setup(
             "wtfport=wtfport.cli:app",
         ],
     },
-    
+
     # Metadata
     author="Hungwa Henry",
     author_email="henterhungwa@gmail.com",
@@ -51,8 +52,7 @@ setup(
         "Documentation": "https://github.com/hungwahenry/wtfport#readme",
         "Source Code": "https://github.com/hungwahenry/wtfport",
     },
-    
-    # Classifiers help users find your project
+
     classifiers=[
         "Development Status :: 4 - Beta",
         "Environment :: Console",

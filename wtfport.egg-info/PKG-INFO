@@ -5,7 +5,7 @@ Summary: A terminal tool to identify, inspect, and interact with processes bound
 Home-page: https://github.com/hungwahenry/wtfport
 Author: Hungwa Henry
 Author-email: Hungwa Henry <henterhungwa@gmail.com>
-License: MIT
+License-Expression: MIT
 Project-URL: Homepage, https://github.com/hungwahenry/wtfport
 Project-URL: Documentation, https://github.com/hungwahenry/wtfport#readme
 Project-URL: Source, https://github.com/hungwahenry/wtfport
