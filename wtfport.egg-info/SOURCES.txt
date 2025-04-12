@@ -1,0 +1,17 @@
+README.md
+pyproject.toml
+setup.py
+wtfport/__init__.py
+wtfport/cli.py
+wtfport/core.py
+wtfport/log_tail.py
+wtfport/notifier.py
+wtfport/output.py
+wtfport/platform_utils.py
+wtfport/stats.py
+wtfport.egg-info/PKG-INFO
+wtfport.egg-info/SOURCES.txt
+wtfport.egg-info/dependency_links.txt
+wtfport.egg-info/entry_points.txt
+wtfport.egg-info/requires.txt
+wtfport.egg-info/top_level.txt

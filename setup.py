@@ -8,7 +8,7 @@ long_description = (this_directory / "README.md").read_text()
 
 # Get version from package without importing
 about = {}
-with open(os.path.join(this_directory, "wtfport", "__init__.py"), encoding="utf-8") as f:
+with open(os.path.join(this_directory, "wtfport", "version.py"), encoding="utf-8") as f:
     exec(f.read(), about)
 
 with open("requirements.txt") as f:
