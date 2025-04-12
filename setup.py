@@ -1,4 +1,3 @@
-# setup.py
 from setuptools import setup, find_packages
 import os
 from pathlib import Path
@@ -12,8 +11,18 @@ about = {}
 with open(os.path.join(this_directory, "wtfport", "version.py"), encoding="utf-8") as f:
     exec(f.read(), about)
 
-with open(this_directory / "requirements.txt") as f:
-    requirements = f.read().splitlines()
+# Core dependencies (copied from pyproject.toml)
+requirements = [
+    "typer>=0.7.0",
+    "rich>=13.3.0",
+    "psutil>=5.9.0",
+    "pyperclip>=1.8.2",
+    "plyer>=2.1.0",
+    "colorama>=0.4.6",
+    "wcwidth>=0.2.6",
+    "requests>=2.28.2",
+    "prompt_toolkit>=3.0.36"
+]
 
 # Development requirements
 dev_requirements = [
@@ -66,6 +75,8 @@ setup(
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
+        "Programming Language :: Python :: 3.13",
         "Topic :: Software Development :: Debuggers",
         "Topic :: System :: Networking",
         "Topic :: Utilities",
