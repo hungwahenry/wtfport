@@ -9,6 +9,7 @@ wtfport/notifier.py
 wtfport/output.py
 wtfport/platform_utils.py
 wtfport/stats.py
+wtfport/version.py
 wtfport.egg-info/PKG-INFO
 wtfport.egg-info/SOURCES.txt
 wtfport.egg-info/dependency_links.txt

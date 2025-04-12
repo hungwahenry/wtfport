@@ -11,9 +11,9 @@ about = {}
 with open(os.path.join(this_directory, "wtfport", "version.py"), encoding="utf-8") as f:
     exec(f.read(), about)
 
-with open("requirements.txt") as f:
+with open(this_directory / "requirements.txt") as f:
     requirements = f.read().splitlines()
-
+    
 # Development requirements
 dev_requirements = [
     "pytest>=7.3.1",

@@ -20,7 +20,7 @@ version = "0.1.0"
 description = "A terminal tool to identify, inspect, and interact with processes bound to specific ports"
 readme = "README.md"
 requires-python = ">=3.7"
-license = { text = "MIT" }
+license = "MIT"
 authors = [
   { name = "Hungwa Henry", email = "henterhungwa@gmail.com" }
 ]
