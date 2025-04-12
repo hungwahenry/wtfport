@@ -1,2 +1,2 @@
 [console_scripts]
-wtfport = wtfport.cli:app
+wtfport = wtfport.cli:main

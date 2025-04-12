@@ -1,6 +1,5 @@
 README.md
 pyproject.toml
-setup.py
 wtfport/__init__.py
 wtfport/cli.py
 wtfport/core.py

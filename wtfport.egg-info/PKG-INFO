@@ -1,36 +1,37 @@
 Metadata-Version: 2.4
 Name: wtfport
 Version: 0.1.0
-Summary: A terminal tool to identify, inspect, and interact with processes bound to specific ports
-Home-page: https://github.com/hungwahenry/wtfport
-Author: Hungwa Henry
-Author-email: Hungwa Henry <henterhungwa@gmail.com>
-License-Expression: MIT
-Project-URL: Homepage, https://github.com/hungwahenry/wtfport
-Project-URL: Documentation, https://github.com/hungwahenry/wtfport#readme
-Project-URL: Source, https://github.com/hungwahenry/wtfport
-Project-URL: Tracker, https://github.com/hungwahenry/wtfport/issues
-Keywords: port,process,network,terminal,development,utilities,devtools
+Summary: CLI tool to watch system port usage
+Author-email: Henry <henry@example.com>
+License: MIT
+Project-URL: Homepage, https://github.com/yourname/wtfport
+Project-URL: Issues, https://github.com/yourname/wtfport/issues
+Keywords: ports,network,cli
+Classifier: Development Status :: 4 - Beta
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: System Administrators
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Topic :: Software Development :: Debuggers
+Classifier: Topic :: System :: Networking
+Classifier: Topic :: Utilities
 Requires-Python: >=3.7
 Description-Content-Type: text/markdown
-Requires-Dist: typer>=0.7.0
-Requires-Dist: rich>=13.3.0
-Requires-Dist: psutil>=5.9.0
-Requires-Dist: pyperclip>=1.8.2
-Requires-Dist: plyer>=2.1.0
-Requires-Dist: colorama>=0.4.6
-Requires-Dist: wcwidth>=0.2.6
-Requires-Dist: requests>=2.28.2
-Requires-Dist: prompt_toolkit>=3.0.36
+Requires-Dist: psutil
+Requires-Dist: click
 Provides-Extra: dev
-Requires-Dist: pytest>=7.3.1; extra == "dev"
-Requires-Dist: tox>=4.5.1; extra == "dev"
-Requires-Dist: flake8>=6.0.0; extra == "dev"
-Requires-Dist: black>=23.3.0; extra == "dev"
-Requires-Dist: isort>=5.12.0; extra == "dev"
-Dynamic: author
-Dynamic: home-page
-Dynamic: requires-python
+Requires-Dist: build; extra == "dev"
+Requires-Dist: twine; extra == "dev"
+Requires-Dist: pytest; extra == "dev"
 
 # wtfport
 
