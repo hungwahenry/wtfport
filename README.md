@@ -35,7 +35,7 @@ brew install wtfport
 ### From Source
 
 ```bash
-git clone https://github.com/yourusername/wtfport.git
+git clone https://github.com/hungwahenry/wtfport.git
 cd wtfport
 pip install -e .
 ```
