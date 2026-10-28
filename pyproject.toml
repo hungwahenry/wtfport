@@ -1,48 +1,70 @@
 [build-system]
-requires = ["setuptools>=64", "wheel"]
+requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "wtfport"
-version = "0.1.0"
-description = "CLI tool to watch system port usage"
+dynamic = ["version"]
+description = "Find out what's using a port, then inspect, kill, or watch it"
 readme = "README.md"
 authors = [
-  { name="Henry", email="henry@example.com" }
+  { name="Hungwa Henry" }
 ]
-license = { text = "MIT" }
-keywords = ["ports", "network", "cli"]
+license = "MIT"
+license-files = ["LICENSE"]
+keywords = ["ports", "network", "cli", "lsof", "netstat", "process"]
 classifiers = [
   "Development Status :: 4 - Beta",
   "Environment :: Console",
   "Intended Audience :: Developers",
   "Intended Audience :: System Administrators",
-  "License :: OSI Approved :: MIT License",
   "Operating System :: OS Independent",
   "Programming Language :: Python :: 3",
-  "Programming Language :: Python :: 3.7",
-  "Programming Language :: Python :: 3.8",
-  "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
   "Topic :: Software Development :: Debuggers",
   "Topic :: System :: Networking",
   "Topic :: Utilities"
 ]
-requires-python = ">=3.7"
+requires-python = ">=3.10"
 dependencies = [
-  "psutil",
-  "click"
+  "typer>=0.16",
+  "rich>=13.8",
+  "psutil>=5.9"
 ]
 
-[project.optional-dependencies]
-dev = ["build", "twine", "pytest"]
-
 [project.urls]
-Homepage = "https://github.com/yourname/wtfport"
-Issues = "https://github.com/yourname/wtfport/issues"
+Homepage = "https://github.com/hungwahenry/wtfport"
+Issues = "https://github.com/hungwahenry/wtfport/issues"
+Changelog = "https://github.com/hungwahenry/wtfport/blob/main/CHANGELOG.md"
 
 [project.scripts]
-wtfport = "wtfport.cli:main"
+wtfport = "wtfport.cli:app"
+
+[dependency-groups]
+dev = ["build", "mypy", "pytest", "ruff", "twine", "types-psutil"]
+
+[tool.setuptools.dynamic]
+version = { attr = "wtfport.__version__" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+wtfport = ["notify.ps1", "py.typed"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["B", "C4", "E", "F", "I", "PTH", "RET", "RUF", "SIM", "UP", "W"]
+
+[tool.mypy]
+strict = true
+files = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

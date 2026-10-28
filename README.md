@@ -1,223 +1,81 @@
 # wtfport
 
-A terminal-based tool that provides developers with an intuitive, human-friendly way to identify, inspect, and interact with processes bound to specific ports on their system.
+Find out what's using a port, then inspect, kill, or watch it.
 
-![wtfport demo](https://raw.githubusercontent.com/hungwahenry/wtfport/main/docs/demo.gif)
-
-## Features
-
-- **Port Lookup**: Quickly show details about the process using a specific port
-- **Process Management**: Kill a process running on a port with a simple command
-- **Cross-Platform Support**: Available for macOS, Linux, and Windows
-- **Colorized Output**: Clear, visually appealing terminal output
-- **Watch Mode**: Continuously monitor and update port usage
-- **Interactive Mode**: Simple interface for interacting with processes
-- **Clipboard Support**: Copy process commands directly to clipboard
-- **Web Server Detection**: Quick access to open web servers in browser
-- **Log Tailing**: Ability to detect and tail logs for processes
-- **Port Statistics**: Track and analyze your most frequently used ports
-- **Notifications**: Get alerted when a specific port becomes active
-
-## Installation
-
-### Using pip
-
-```bash
-pip install wtfport
+```
+$ wtfport 3000
+╭─ Port 3000 ─────────────────────────────╮
+│                                         │
+│  Process  node                          │
+│  PID      1234                          │
+│  Command  node server.js                │
+│  User     you                           │
+│  Started  3m ago                        │
+│  URL      http://localhost:3000         │
+│                                         │
+╰─────────────────────────────────────────╯
+o  Open in browser
+k  Kill
+c  Copy command
+q  Quit
 ```
 
-### Using Homebrew (macOS/Linux)
+Works on macOS, Linux and Windows with Python 3.10+.
+
+## Install
 
 ```bash
-brew install wtfport
-```
-
-### From Source
-
-```bash
-git clone https://github.com/hungwahenry/wtfport.git
-cd wtfport
-pip install -e .
+pipx install wtfport
 ```
 
 ## Usage
 
-### Basic Commands
-
-Check a specific port:
 ```bash
-wtfport 3000
+wtfport                  # list every listening port
+wtfport 3000             # inspect port 3000
+wtfport 3000 --kill      # stop the process on port 3000 (--yes to skip the prompt)
+wtfport 3000 --copy      # copy its command line
+wtfport 3000 --open      # open it in your browser
+wtfport 3000 --watch     # report processes starting and stopping
+wtfport 3000 --notify    # get a desktop notification when it's in use
+wtfport 3000 --stats     # how often you've seen it, and by what (--stats alone for all ports)
 ```
 
-Show all listening ports:
-```bash
-wtfport
-# or
-wtfport --all
-```
+Run `wtfport --help` for every option.
 
-Kill a process on a port:
-```bash
-wtfport 3000 --kill
-```
+## Scripting
 
-### Monitoring Features
-
-Watch a port for changes:
-```bash
-wtfport 3000 --watch
-```
-
-Get notified when a port becomes active:
-```bash
-wtfport --notify 5000
-```
-
-### For Web Developers
-
-Open a web server in browser:
-```bash
-wtfport 3000 --open
-```
-
-### Port Statistics and History
-
-View port usage statistics:
-```bash
-wtfport --stats
-```
-
-View detailed history for a specific port:
-```bash
-wtfport --stats-detail 3000
-```
-
-### Automation & Scripting
-
-Get JSON output for scripting:
-```bash
-wtfport 3000 --json
-```
-
-Copy the command to clipboard:
-```bash
-wtfport 3000 --copy
-```
-
-### Interactive Mode
-
-When running `wtfport <port>` without additional flags, you'll enter interactive mode where you can:
-
-- Open the port in a browser
-- Kill the process
-- Copy the command to clipboard
-- Tail logs (if available)
-
-## Examples
-
-### Finding What's Using a Port
+`--json` prints a list of listeners for lookups and listings:
 
 ```bash
-$ wtfport 3000
-
-Port 3000 is being used by:
-╭──────────────────────────────────────────────────────────────────╮
-│                                                                  │
-│ ✓ Process:   node                                                │
-│    PID:       1234                                               │
-│    Command:   node server.js                                     │
-│    User:      yourname                                           │
-│    Started:   3m ago                                             │
-│                                                                  │
-╰──────────────────────────────────────────────────────────────────╯
-
-Options:
-[O] Open in browser      (http://localhost:3000)
-[K] Kill process         (sudo may be required)
-[C] Copy command         (to clipboard)
-[Q] Quit
+$ wtfport 3000 --json
+[
+  {
+    "port": 3000,
+    "pid": 1234,
+    "name": "node",
+    "command": "node server.js",
+    "user": "you",
+    "started_at": "2026-10-28T14:30:22+01:00"
+  }
+]
 ```
 
-### Viewing All Listening Ports
+Exit codes: `0` success, `1` nothing listening or the action failed, `2` invalid usage, `130` interrupted. So `wtfport 3000 --json > /dev/null || npm start` starts a server only if the port is free.
 
-```bash
-$ wtfport
-
-Listening Ports:
-┏━━━━━━━┳━━━━━━━━━━━━━━━┳━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━━━┓
-┃  Port ┃ Process       ┃   PID ┃ User      ┃ Started     ┃
-┡━━━━━━━╇━━━━━━━━━━━━━━━╇━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━━━┩
-│   22  │ sshd          │   122 │ root      │ 4h ago      │
-│  443  │ httpd         │   436 │ www       │ 2d ago      │
-│ 3000  │ node          │  1234 │ yourname  │ 3m ago      │
-│ 5432  │ postgres      │   983 │ postgres  │ 2d ago      │
-└───────┴───────────────┴───────┴───────────┴─────────────┘
-
-Tip: run `wtfport <port>` to inspect in detail.
-```
-
-### Port Statistics
-
-```bash
-$ wtfport --stats
-
-Port Usage Statistics:
-
-Tracking data for 15 ports and 7 processes.
-Last updated: 2023-06-15T14:30:22.456789
-
-Top Ports:
-┏━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━┓
-┃  Port ┃ Access Count ┃ Processes                  ┃ Last Seen    ┃
-┡━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━┩
-│ 3000  │ 42           │ node, python, ruby         │ 2023-06-15   │
-│ 8080  │ 27           │ java, tomcat               │ 2023-06-14   │
-│ 5432  │ 18           │ postgres                   │ 2023-06-15   │
-│ 443   │ 15           │ nginx, apache              │ 2023-06-15   │
-│ 27017 │ 10           │ mongod                     │ 2023-06-13   │
-└───────┴──────────────┴────────────────────────────┴──────────────┘
-
-Top Processes:
-┏━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ Process   ┃ Access Count ┃ Used Ports                       ┃
-┡━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
-│ node      │ 45           │ 3000, 8000, 9000, 4200, 4000     │
-│ postgres  │ 18           │ 5432                             │
-│ nginx     │ 15           │ 443, 80                          │
-│ java      │ 12           │ 8080, 8443                       │
-│ mongod    │ 10           │ 27017                            │
-└───────────┴──────────────┴─────────────────────────────────┘
-
-Tip: Use `wtfport --stats-detail <port>` to see detailed history for a specific port.
-```
-
-## Requirements
-
-- Python 3.7 or higher
-- Dependencies (automatically installed):
-  - typer
-  - rich
-  - psutil
-  - pyperclip
+Without `sudo` (or Administrator on Windows), other users' processes show up with unknown details, and on macOS they're missing from the full listing.
 
 ## Privacy
 
-wtfport runs completely locally on your machine. The statistics feature stores data only in a local file (~/.wtfport/stats.json) and no data is ever sent outside your computer.
+Everything runs locally. Port history is kept in `~/.wtfport/stats.json`; delete it to start over.
 
-## Contributing
+## Development
 
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+```bash
+pip install -e . --group dev
+ruff format --check . && ruff check . && mypy && pytest
+```
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Credits
-
-Created by [Hungwa Henry](https://github.com/hungwahenry)
+MIT, by [Hungwa Henry](https://github.com/hungwahenry).
