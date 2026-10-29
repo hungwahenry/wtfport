@@ -34,11 +34,11 @@ def follow(path: Path, lines: int = 10, interval: float = 0.25) -> Iterator[str]
     file = path.open("rb")
     try:
         for line in _last_lines(file, lines):
-            yield line.decode(errors="replace")
+            yield _text(line)
         while True:
             line = file.readline()
             if line:
-                yield line.decode(errors="replace")
+                yield _text(line)
             elif _replaced(path, file):
                 file.close()
                 file = path.open("rb")
@@ -48,6 +48,11 @@ def follow(path: Path, lines: int = 10, interval: float = 0.25) -> Iterator[str]
                 time.sleep(interval)
     finally:
         file.close()
+
+
+def _text(line: bytes) -> str:
+    """Decode a line read in binary mode, normalising Windows line endings to ``\\n``."""
+    return line.decode(errors="replace").replace("\r\n", "\n")
 
 
 def _last_lines(file: BinaryIO, count: int) -> list[bytes]:

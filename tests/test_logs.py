@@ -88,3 +88,14 @@ def test_follow_reads_long_files_from_the_end(tmp_path):
     lines = logs.follow(log, lines=2)
 
     assert [next(lines), next(lines)] == ["line 99999\n", "café\n"]
+
+
+def test_follow_normalises_windows_line_endings(tmp_path):
+    log = tmp_path / "app.log"
+    log.write_bytes(b"one\r\ntwo\r\n")
+    lines = logs.follow(log, lines=2)
+
+    assert [next(lines), next(lines)] == ["one\n", "two\n"]
+    with log.open("ab") as file:
+        file.write(b"three\r\n")
+    assert next(lines) == "three\n"

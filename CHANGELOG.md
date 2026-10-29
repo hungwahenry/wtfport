@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+### Fixed
+
+- Following a log with Windows line endings no longer leaves a carriage return at the end of each line.
+
 ## 0.2.0 - 2026-10-29
 
 A rewrite. 0.1.x couldn't start after installation, so this is effectively the first working release.

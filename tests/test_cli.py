@@ -1,5 +1,6 @@
 import json
 import os
+import re
 import subprocess
 import sys
 from importlib.metadata import entry_points
@@ -183,4 +184,5 @@ def test_invalid_usage(args, message):
     result = run(*args)
 
     assert result.exit_code == 2
-    assert message in result.output
+    # Typer colours its error box in CI, wrapping option names in escape codes
+    assert message in re.sub(r"\x1b\[[0-9;]*m", "", result.output)
